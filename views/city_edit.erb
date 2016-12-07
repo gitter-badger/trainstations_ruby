@@ -1,0 +1,11 @@
+<h3>Edit <%= @city.name()  %> city</h3>
+
+
+<form class="" action="/admin/city/<%= @city.id()%>" method="post">
+  <input type="hidden" name="_method" value="patch">
+    <label for="name">Rename your city name</label>
+    <input type="text" name="name" value="">
+
+    <button type="submit" name="button" class="btn btn-primary">Save Changes</button>
+
+</form>

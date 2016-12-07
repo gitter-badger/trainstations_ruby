@@ -53,3 +53,45 @@ get('/admin/city/:id')do
   @city = City.find(id)
   erb(:city)
 end
+
+delete("/admin/train/:id") do
+  @train = Train.find(params.fetch("id").to_i)
+  @train.delete()
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:admin)
+end
+
+get("/admin/train/:id/edit") do
+  @train = Train.find(params.fetch("id").to_i)
+  erb(:train_edit)
+end
+
+patch('/admin/train/:id')do
+  route = params.fetch("route")
+  @train = Train.find(params.fetch("id").to_i)
+  @train.update({:route => route})
+  erb(:train)
+end
+
+
+
+delete("/admin/city/:id") do
+  @city = City.find(params.fetch("id").to_i)
+  @city.delete()
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:admin)
+end
+
+get("/admin/city/:id/edit") do
+  @city = City.find(params.fetch("id").to_i)
+  erb(:city_edit)
+end
+
+patch('/admin/city/:id')do
+  name = params.fetch("name")
+  @city = City.find(params.fetch("id").to_i)
+  @city.update({:name => name})
+  erb(:city)
+end

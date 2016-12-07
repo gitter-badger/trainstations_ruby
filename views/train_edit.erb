@@ -1,0 +1,11 @@
+<h3>Edit <%= @train.route()  %> Train</h3>
+
+
+<form class="" action="/admin/train/<%= @train.id()%>" method="post">
+  <input type="hidden" name="_method" value="patch">
+    <label for="route">Rename your Train Route</label>
+    <input type="text" name="route" value="">
+
+    <button type="submit" name="button" class="btn btn-primary">Save Changes</button>
+
+</form>

@@ -3,3 +3,12 @@
 the route for this train is <%= @train.route() %>
 
 the id for this train is <%= @train.id() %>
+
+
+<a href="/admin/train/<%= @train.id() %>/edit">edit</a>
+
+<form action="/admin/train/<%= @train.id() %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" name="button">Delete Train</button>
+
+</form>

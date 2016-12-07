@@ -3,3 +3,12 @@
 the name for this city is <%= @city.name() %>
 
 the id for this city is <%= @city.id() %>
+
+
+<a href="/admin/city/<%= @city.id() %>/edit">edit</a>
+
+<form action="/admin/city/<%= @city.id() %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" name="button" class="btn btn-primary">Delete city</button>
+
+</form>
