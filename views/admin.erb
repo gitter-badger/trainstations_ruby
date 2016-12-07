@@ -1,0 +1,15 @@
+List of Trains
+<% if @trains.any?() %>
+  <div id="trains">
+    <% @trains.each do |train| %>
+    <ul>
+      <li><a href="/admin/<%=train.id()%>"> <%= train.route() %> </a></li>
+    </ul>
+    <% end  %>
+  </div>
+  <%else  %>
+  There are no trains. Add one here!
+  <% end  %>
+
+
+List of Cities
