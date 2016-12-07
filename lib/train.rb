@@ -33,16 +33,7 @@ class Train
   define_method(:update) do |attributes|
     @route = attributes.fetch(:route)
     @id = self.id()
-    p @route, self.id
     DB.exec("UPDATE train SET route = '#{@route}' WHERE id = #{@id};")
   end
-
-
-
-
-
-
-
-
 
 end
