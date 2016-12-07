@@ -36,4 +36,17 @@ class Train
     DB.exec("UPDATE train SET route = '#{@route}' WHERE id = #{@id};")
   end
 
+  define_singleton_method(:find) do |id|
+    trains = Train.all()
+    found_train = nil
+    trains.each() do |train|
+      if train.id == id
+        found_train = train
+    end
+  end
+  found_train
+end
+
+
+
 end

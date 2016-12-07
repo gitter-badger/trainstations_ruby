@@ -51,6 +51,14 @@ describe(Train) do
     end
   end
 
+  describe(".find") do
+    it "find a train based on id" do
+      test_train = Train.new({:route => "blue"})
+      test_train.save()
+
+      expect(Train.find(test_train.id)).to(eq(test_train))
+    end
+  end
 
 
 

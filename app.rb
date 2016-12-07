@@ -14,5 +14,42 @@ end
 
 get('/admin') do
   @trains = Train.all()
+  @cities = City.all()
   erb(:admin)
+end
+
+get('/train_new') do
+  erb(:train_form)
+end
+
+post('/trains') do
+  route = params.fetch('route')
+  Train.new({:route => route}).save()
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:admin)
+end
+
+get('/admin/train/:id') do
+  id = params.fetch('id').to_i
+  @train = Train.find(id)
+  erb(:train)
+end
+
+get('/city_new')do
+  erb(:city_form)
+end
+
+post('/cities') do
+  name = params.fetch('name')
+  City.new({:name => name}).save()
+  @cities = City.all()
+  @trains = Train.all()
+  erb(:admin)
+end
+
+get('/admin/city/:id')do
+  id = params.fetch('id').to_i
+  @city = City.find(id)
+  erb(:city)
 end

@@ -36,4 +36,18 @@ class City
     DB.exec("UPDATE city SET name = '#{@name}' WHERE id = #{@id};")
   end
 
+  define_singleton_method(:find) do |id|
+    cities = City.all()
+    found_city = nil
+    cities.each() do |city|
+      if city.id == id
+        found_city = city
+      end
+    end
+    found_city
+  end
+
+
+
+
 end
