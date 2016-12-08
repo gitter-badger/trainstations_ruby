@@ -19,3 +19,6 @@ CREATE DATABASE trainstations_test WITH TEMPLATE trainstations;
 CREATE TABLE users (id serial PRIMARY KEY, username varchar, password_hash varchar, last_signin timestamp)
 
 <!--https://sideprojectsoftware.com/blog/2015/02/22/sinatra-authentication.html  -->
+
+
+[![Join the chat at https://gitter.im/trainstations_ruby/Lobby](https://badges.gitter.im/trainstations_ruby/Lobby.svg)](https://gitter.im/trainstations_ruby/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
