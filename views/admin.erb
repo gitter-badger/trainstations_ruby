@@ -1,12 +1,29 @@
 
-<h3>Admin Panel</h3>
+<div id="nav" class="well">
 
-List of Trains - <a href="/train_new">Add Train</a><br>
+  <div class="pull-right">
+    <h3>Admin Panel</h3>
+  </div>
+
+
+<a href="/">Home</a> |
+<a href="/***">View Trains</a> |
+<a href="/***">View Cities</a>
+
+
+
+</div>
+
+<div id="main" class="well">
+
+<h3>List of Trains</h3>
+<span class="pull-right btn"><a href="/train_new"><w>Add Train</w></a></span>
+  <p>Select Train to Edit or Delete<p>
   <div id="trains">
     <% if @trains.any?() %>
     <% @trains.each do |train| %>
     <ul>
-      <li><a href="/admin/train/<%=train.id()%>"> <%= train.route() %> </a></li>
+      <li><span class="t_c_options"><a href="/admin/train/<%=train.id()%>"> <%= train.route() %> </a><span></li>
     </ul>
     <% end  %>
   <%else  %>
@@ -14,7 +31,9 @@ List of Trains - <a href="/train_new">Add Train</a><br>
   <% end  %>
 </div>
 
-List of Cities - <a href="/city_new">Add City</a><br>
+<h3>List of Cities</h3>
+<span class="pull-right btn"><a href="/city_new"><w>Add City</w></a></span>
+
 <div id="cities">
 <% if @cities.any?() %>
     <% @cities.each do |city| %>
@@ -25,4 +44,6 @@ List of Cities - <a href="/city_new">Add City</a><br>
   <%else  %>
   There are no cities
   <% end  %>
+</div>
+
 </div>
