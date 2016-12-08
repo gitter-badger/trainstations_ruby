@@ -66,5 +66,9 @@ end
     end
     train_cities
   end
+  define_method(:find_stop) do |city_id|
+    result = DB.exec("SELECT * FROM train_city WHERE city_id =#{city_id} AND train_id =#{self.id}")
+    result.first().fetch('stop_time').to_s
+  end
 
 end
