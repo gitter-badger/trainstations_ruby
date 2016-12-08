@@ -12,3 +12,34 @@ the id for this city is <%= @city.id() %>
   <button type="submit" name="button" class="btn btn-primary">Delete city</button>
 
 </form>
+
+
+<% if @city_trains.any?() %>
+  <% @city_trains.each() do |train| %>
+  <ul>
+    <li><a href="/admin/train/<%= train.id() %>"><%= train.route + " " + train.find_time(@city.id())+ " " + train.find_price(@city.id())%> </a> </li>
+  </ul>
+
+  <%end  %>
+<%else  %>
+  This City does not have any trains passing by
+<%end  %>
+
+
+<h3>Select all the trains that <%= @city.name() %> has passing through.</h3>
+
+<% if @trains.any?() %>
+  <form action="/admin/cities/<%= @city.id %>" method="post">
+    <input type="hidden" id="city_id" name="city_id" value='<%= @city.id()  %>'>
+    <label for="train_id">Choose a train</label>
+    <select id='train_id' name='train_id' type='text'>
+      <% @trains.each() do |train| %>
+        <option value="<%= train.id()%>"> <%= train.route() %> </option>
+      <% end %>
+    </select>
+    <label for="stop_time">Stop Time:</label>
+    <input type="text" id="stop_time"name="stop_time" value="09:00:00">
+    Price $<input type="text" name="price" placeholder="5">
+    <button type="submit">Add Train</button>
+  </form>
+  <% end %>

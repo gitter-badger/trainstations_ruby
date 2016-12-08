@@ -50,11 +50,11 @@ describe(Train) do
       expect(test_train.route).to(eq("green"))
     end
     it "lets you add a city to the train" do
-      test_city = City.new({:name => "Vancouver"})
+      test_city = City.new({:name => "Vancouver", :id => nil})
       test_city.save()
       test_train = Train.new({:route => "green"})
       test_train.save()
-      test_train.add_city({:city_id => test_city.id(), :stop_time => '09:00:00'})
+      test_train.add_city(test_city.id(), '09:00:00')
       expect(test_train.cities()).to(eq([test_city]))
     end
   end
