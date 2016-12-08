@@ -33,6 +33,9 @@ end
 get('/admin/train/:id') do
   id = params.fetch('id').to_i
   @train = Train.find(id)
+  # FIX THIS!!!
+  # @cities = @train.cities()
+  @cities = City.all()
   erb(:train)
 end
 
@@ -71,6 +74,7 @@ patch('/admin/train/:id')do
   route = params.fetch("route")
   @train = Train.find(params.fetch("id").to_i)
   @train.update({:route => route})
+  @cities = City.all()
   erb(:train)
 end
 
@@ -101,4 +105,16 @@ get('/customer') do
   @trains = Train.all()
   @cities = City.all()
   erb(:customer)
+end
+
+post('/admin/trains/:id') do
+  train_id = params.fetch('id').to_i
+  city_id = params.fetch('city_id').to_i
+  @city = City.find(city_id)
+  @train = Train.find(train_id)
+
+  @train.add_city({:city_id => city_id})
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:train)
 end
