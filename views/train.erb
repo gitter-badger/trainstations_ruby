@@ -17,7 +17,7 @@ the id for this train is <%= @train.id() %>
 <% if @train_cities.any?() %>
   <% @train_cities.each() do |city| %>
   <ul>
-    <li><a href="/admin/city/<%= city.id() %>"><%= city.name + " " + city.find_stop(@train.id()) %> </a> </li>
+    <li><a href="/admin/city/<%= city.id() %>"><%= city.name + " " + city.find_time(@train.id())+ " " + city.find_price(@train.id()) %> </a> </li>
   </ul>
 
   <%end  %>
@@ -36,8 +36,10 @@ the id for this train is <%= @train.id() %>
       <% @cities.each() do |city| %>
         <option value="<%= city.id()%>"> <%= city.name() %> </option>
       <% end %>
-      <input type="text" name="stop_time" value="09:00:00">
     </select>
+      <label for="stop_time">Stop Time:</label>
+      <input type="text" id="stop_time"name="stop_time" value="09:00:00">
+      Price $<input type="text" name="price" placeholder="5">
     <button type="submit">Add City</button>
   </form>
   <% end %>

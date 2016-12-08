@@ -52,7 +52,8 @@ end
   define_method(:add_city) do |attributes|
     city_id = attributes.fetch(:city_id, nil)
     stop_time = attributes.fetch(:stop_time, '00:00:00')
-    DB.exec("INSERT INTO train_city (train_id, city_id, stop_time) VALUES (#{self.id}, #{city_id}, '#{stop_time}')")
+    price = attributes.fetch(:price, '0')
+    DB.exec("INSERT INTO train_city (train_id, city_id, stop_time, price) VALUES (#{self.id}, #{city_id}, '#{stop_time}', '#{price}');")
   end
 # return a list of trains of the city
   define_method(:cities) do
@@ -66,9 +67,13 @@ end
     end
     train_cities
   end
-  define_method(:find_stop) do |city_id|
+  define_method(:find_time) do |city_id|
     result = DB.exec("SELECT * FROM train_city WHERE city_id =#{city_id} AND train_id =#{self.id}")
     result.first().fetch('stop_time').to_s
+  end
+  define_method(:find_price) do |city_id|
+    result = DB.exec("SELECT * FROM train_city WHERE city_id =#{city_id} AND train_id =#{self.id}")
+    result.first().fetch('price').to_s
   end
 
 end

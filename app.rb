@@ -153,11 +153,12 @@ patch('/admin/city/:id')do
   name = params.fetch("name")
   @city = City.find(params.fetch("id").to_i)
   @city.update({:name => name})
+  @city_trains = @city.trains()
+  @trains = Train.all()
+
   erb(:city)
 end
 
-
-#customer related
 
 get('/customer') do
   @trains = Train.all()
@@ -171,7 +172,8 @@ post('/admin/trains/:id') do
   @city = City.find(city_id)
   @train = Train.find(train_id)
   stop_time = params.fetch('stop_time').to_s
-  @train.add_city({:city_id => city_id, :stop_time => stop_time})
+  price = params.fetch('price').to_s
+  @train.add_city({:city_id => city_id, :stop_time => params.fetch('stop_time').to_s, :price => price})
   @trains = Train.all()
   @cities = City.all()
   @train_cities = @train.cities()
@@ -184,7 +186,8 @@ post('/admin/cities/:id') do
   @city = City.find(city_id)
   @train = Train.find(train_id)
   stop_time = params.fetch('stop_time').to_s
-  @city.add_train({:train_id => train_id, :stop_time => stop_time})
+  price = params.fetch('price').to_s
+  @city.add_train({:train_id => train_id, :stop_time => stop_time, :price => price})
   @trains = Train.all()
   @cities = City.all()
   @city_trains = @city.trains()
