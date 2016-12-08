@@ -1,0 +1,14 @@
+hello user here is a list of trains, you can pick one to buy a ticket!
+
+List of Trains -
+  <div id="trains">
+    <% if @trains.any?() %>
+    <% @trains.each do |train| %>
+    <ul>
+      <li><a href="/customer/train/<%=train.id()%>"> <%= train.route() %> </a></li>
+    </ul>
+    <% end  %>
+  <%else  %>
+  There are no trains
+  <% end  %>
+</div>

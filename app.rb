@@ -160,12 +160,6 @@ patch('/admin/city/:id')do
 end
 
 
-get('/customer') do
-  @trains = Train.all()
-  @cities = City.all()
-  erb(:customer)
-end
-
 post('/admin/trains/:id') do
   train_id = params.fetch('id').to_i
   city_id = params.fetch('city_id').to_i
@@ -193,4 +187,21 @@ post('/admin/cities/:id') do
   @city_trains = @city.trains()
   @train_cities = @train.cities()
   erb(:city)
+end
+
+
+# Customers!
+
+get('/customers/trains') do
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:customer_trains)
+end
+
+get('/customer/train/:id') do
+  id = params.fetch('id').to_i
+  @train = Train.find(id)
+  @cities = City.all()
+  @train_cities = @train.cities()
+  erb(:train)
 end
