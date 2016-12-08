@@ -74,8 +74,6 @@ patch('/admin/train/:id')do
   erb(:train)
 end
 
-
-
 delete("/admin/city/:id") do
   @city = City.find(params.fetch("id").to_i)
   @city.delete()
@@ -94,4 +92,13 @@ patch('/admin/city/:id')do
   @city = City.find(params.fetch("id").to_i)
   @city.update({:name => name})
   erb(:city)
+end
+
+
+#customer related
+
+get('/customer') do
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:customer)
 end

@@ -48,5 +48,23 @@ class Train
 end
 
 
+# It will add a train with a stop time to the city in the train_city database
+  define_method(:add_city) do |attributes|
+    city_id = attributes.fetch(:city_id, nil)
+    stop_time = attributes.fetch(:stop_time, '00:00:00')
+    DB.exec("INSERT INTO train_city (train_id, city_id, stop_time) VALUES (#{self.id}, #{city_id}, '#{stop_time}')")
+  end
+# return a list of trains of the city
+  define_method(:cities) do
+    train_cities = []
+    results = DB.exec("SELECT city_id FROM train_city WHERE train_id = #{self.id()};")
+    results.each() do |result|
+      city_id = result.fetch('city_id').to_i()
+      city = DB.exec("SELECT * FROM city WHERE id = #{city_id}")
+      name = city.first().fetch('name')
+      train_cities.push(City.new({:name => name, :id => city_id}))
+    end
+    train_cities
+  end
 
 end
