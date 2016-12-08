@@ -84,7 +84,6 @@ get('/admin/train/:id') do
   authenticate!
   id = params.fetch('id').to_i
   @train = Train.find(id)
-  # FIX THIS!!!
   @cities = City.all()
   @train_cities = @train.cities()
   erb(:train)
@@ -107,6 +106,8 @@ get('/admin/city/:id')do
   authenticate!
   id = params.fetch('id').to_i
   @city = City.find(id)
+  @city_trains = @city.trains()
+  @trains = Train.all()
   erb(:city)
 end
 
@@ -138,6 +139,7 @@ delete("/admin/city/:id") do
   @city.delete()
   @trains = Train.all()
   @cities = City.all()
+  @city_trains = @city.trains()
   erb(:admin)
 end
 
@@ -173,7 +175,19 @@ post('/admin/trains/:id') do
   @trains = Train.all()
   @cities = City.all()
   @train_cities = @train.cities()
-
-
   erb(:train)
+end
+
+post('/admin/cities/:id') do
+  city_id = params.fetch('id').to_i
+  train_id = params.fetch('train_id').to_i
+  @city = City.find(city_id)
+  @train = Train.find(train_id)
+  stop_time = params.fetch('stop_time').to_s
+  @city.add_train({:train_id => train_id, :stop_time => stop_time})
+  @trains = Train.all()
+  @cities = City.all()
+  @city_trains = @city.trains()
+  @train_cities = @train.cities()
+  erb(:city)
 end
