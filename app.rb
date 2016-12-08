@@ -5,68 +5,70 @@ require('./lib/train')
 also_reload("./lib/**/*.rb")
 require('pg')
 require 'sinatra/flash'
-#
-# require_relative 'lib/core_ext/object'
-# require_relative 'lib/authentication'
-# require_relative 'lib/user'
-#
-# TEN_MINUTES   = 60 * 10
-# use Rack::Session::Pool, expire_after: TEN_MINUTES # Expire sessions after ten minutes of inactivity
-# helpers Authentication
+
+require_relative 'lib/core_ext/object'
+require_relative 'lib/authentication'
+require_relative 'lib/user'
+
+TEN_MINUTES   = 60 * 10
+use Rack::Session::Pool, expire_after: TEN_MINUTES # Expire sessions after ten minutes of inactivity
+helpers Authentication
 
 
 DB = PG.connect({:dbname => 'trainstations_test'})
-#
-# helpers do
-#   def redirect_to_original_request
-#     user = session[:user]
-#     flash[:notice] = "Welcome back #{user.name}."
-#     original_request = session[:original_request]
-#     session[:original_request] = nil
-#     redirect original_request
-#   end
-# end
-#
-# get '/signin/?' do
-#   erb :signin, locals: { title: 'Sign In' }
-# end
-#
-# post '/signin/?' do
-#   if user = User.authenticate(params)
-#     session[:user] = user
-#     redirect_to_original_request
-#   else
-#     flash[:notice] = 'You could not be signed in. Did you enter the correct username and password?'
-#     redirect '/signin'
-#   end
-# end
-#
-# get '/signout' do
-#   session[:user] = nil
-#   flash[:notice] = 'You have been signed out.'
-#   redirect '/'
-# end
-#
-# get '/?' do
-#   erb :index, locals: { title: 'Home' }
-# end
-#
-# get '/protected/?' do
-#   authenticate!
-#   erb :protected, locals: { title: 'Protected Page' }
-# end
 
-get('/') do
-  erb(:index)
+helpers do
+  def redirect_to_original_request
+    user = session[:user]
+    flash[:notice] = "Welcome back #{user.name}."
+    original_request = session[:original_request]
+    session[:original_request] = nil
+    redirect original_request
+  end
 end
 
+get '/signin/?' do
+  erb :signin, locals: { title: 'Sign In' }
+end
+
+post '/signin/?' do
+  if user = User.authenticate(params)
+    session[:user] = user
+    redirect_to_original_request
+  else
+    flash[:notice] = 'You could not be signed in. Did you enter the correct username and password?'
+    redirect '/signin'
+  end
+end
+
+get '/signout' do
+  session[:user] = nil
+  flash[:notice] = 'You have been signed out.'
+  redirect '/'
+end
+
+get '/?' do
+  erb :index, locals: { title: 'Home' }
+end
+
+get '/protected/?' do
+  authenticate!
+  erb :protected, locals: { title: 'Protected Page' }
+end
+
+# get('/') do
+#   erb(:index)
+# end
+
 get('/admin') do
+  authenticate!
   @trains = Train.all()
   @cities = City.all()
   erb(:admin)
 end
 
 get('/train_new') do
+  authenticate!
   erb(:train_form)
 end
 
@@ -79,6 +81,7 @@ post('/trains') do
 end
 
 get('/admin/train/:id') do
+  authenticate!
   id = params.fetch('id').to_i
   @train = Train.find(id)
   # FIX THIS!!!
@@ -88,6 +91,7 @@ get('/admin/train/:id') do
 end
 
 get('/city_new')do
+  authenticate!
   erb(:city_form)
 end
 
@@ -100,6 +104,7 @@ post('/cities') do
 end
 
 get('/admin/city/:id')do
+  authenticate!
   id = params.fetch('id').to_i
   @city = City.find(id)
   erb(:city)
@@ -114,6 +119,7 @@ delete("/admin/train/:id") do
 end
 
 get("/admin/train/:id/edit") do
+  authenticate!
   @train = Train.find(params.fetch("id").to_i)
   erb(:train_edit)
 end
@@ -136,6 +142,7 @@ delete("/admin/city/:id") do
 end
 
 get("/admin/city/:id/edit") do
+  authenticate!
   @city = City.find(params.fetch("id").to_i)
   erb(:city_edit)
 end
