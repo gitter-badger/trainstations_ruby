@@ -56,9 +56,9 @@ get '/protected/?' do
   erb :protected, locals: { title: 'Protected Page' }
 end
 
-# get('/') do
-#   erb(:index)
-# end
+get('/') do
+  erb(:index)
+end
 
 get('/admin') do
   authenticate!
