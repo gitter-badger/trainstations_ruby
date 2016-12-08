@@ -1,0 +1,18 @@
+<h3>City</h3>
+
+the name for this city is <%= @city.name() %>
+
+the id for this city is <%= @city.id() %>
+
+
+
+<% if @city_trains.any?() %>
+  <% @city_trains.each() do |train| %>
+  <ul>
+    <li><a href="/customer/train/<%= train.id() %>"><%= train.route + " " + train.find_time(@city.id())+ " " + train.find_price(@city.id())%> </a> </li>
+  </ul>
+
+  <%end  %>
+<%else  %>
+  This City does not have any trains passing by
+<%end  %>

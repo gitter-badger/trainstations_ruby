@@ -197,11 +197,24 @@ get('/customers/trains') do
   @cities = City.all()
   erb(:customer_trains)
 end
+get('/customers/cities') do
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:customer_cities)
+end
 
 get('/customer/train/:id') do
   id = params.fetch('id').to_i
   @train = Train.find(id)
   @cities = City.all()
   @train_cities = @train.cities()
-  erb(:train)
+  erb(:customer_train)
+end
+
+get('/customer/city/:id')do
+  id = params.fetch('id').to_i
+  @city = City.find(id)
+  @city_trains = @city.trains()
+  @trains = Train.all()
+  erb(:customer_city)
 end
